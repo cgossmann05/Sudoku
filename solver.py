@@ -10,6 +10,28 @@ board = [
     [0,4,9,2,0,6,0,0,7]
 ]
 
+
+def solve(bo):
+
+    find = find_empty(bo)
+    if not find:
+        return True
+    else:
+        row, column = find
+    
+    for i in range(1, 10):
+        if valid(bo, i, (row, column)):
+            bo[row][column] = i
+
+            if solve(bo):
+                return True
+            
+            bo[row][column] = 0
+    
+    return False
+
+
+
 def valid(bo, num, pos):
     
     #check row
@@ -33,6 +55,7 @@ def valid(bo, num, pos):
     
     return True
 
+
 def print_board(bo):
     for i in range(len(bo)):
         if i % 3 == 0 and i != 0:
@@ -47,8 +70,16 @@ def print_board(bo):
             else:
                 print(str(bo[i][j]) + " ", end="")
 
+
 def find_empty(bo):
     for i in range(len(bo)):
         for j in range(len(bo[0])):
             if bo[i][j] == 0:
                 return (i, j) # row, column
+    
+    return None
+
+print_board(board)
+solve(board)
+print("______________________")
+print_board(board)
