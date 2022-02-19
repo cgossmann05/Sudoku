@@ -1,4 +1,3 @@
-from cmath import nan
 from solver import print_board, find_empty
 
 board = [
