@@ -78,8 +78,3 @@ def find_empty(bo):
                 return (i, j) # row, column
     
     return None
-
-print_board(board)
-solve(board)
-print("______________________\n")
-print_board(board)
