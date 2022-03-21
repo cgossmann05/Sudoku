@@ -1,5 +1,4 @@
-from solver import print_board, find_empty
-from boards import board, solved_board, print_board
+from boards import print_board
 
 
 
@@ -55,21 +54,5 @@ def check_if_correct(bo, solved_bo):
         return True
     else:
         print("\nNot quite, try again:\n")
-        print_board(board)
+        print_board(bo)
         check_if_correct(bo, solved_bo)
-
-
-
-def play_game(bo, solved_bo):
-    print("Welcome to Sudoku game!\n")
-    print_board(bo)
-    check_if_correct(bo, solved_bo)
-    find = find_empty(bo)
-    if not find:
-        print("Congratulations! You completed the Sudoku")
-        return True
-        
-    else:
-        play_game(bo, solved_bo)
-
-play_game(board, solved_board)

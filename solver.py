@@ -1,19 +1,53 @@
-
-from boards import print_board
 from game import choose_col, choose_row, choose_val
+from boards import print_board
+
 
 
 def play_solver(bo):
     print("Welcome to Sudoku solver!\n")
     print_board(bo)
+    check_pos(bo)
+    print("\n")
+    done = ask_if_finished()
+    find = find_empty(bo)
+    if done or not find:
+        solve(bo)
+        print("Congratulations! Here is your solved board.\n")
+        print_board(bo)
+        print("\n")
+        return True
+    else:
+        play_solver(bo)
+
+
+
+def ask_if_finished():
+    response = input("Do you want to solve the board now? Enter \"y\" for yes and \"c\" to continue building the board.\n")
+    if response == "y":
+        return True
+    elif response == "c":
+        return False
+    else:
+        ask_if_finished()
+
+
+
+def check_pos(bo):
+    row, col = choose_pos(bo)
+    val = choose_val(bo)
+
+    if valid(bo, val, [row, col]):
+        bo[row][col] = val
+    else:
+        print("Not valid.")
+        check_pos(bo)
 
 
 
 def choose_pos(bo):
     col = choose_col(bo)
     row = choose_row(bo)
-    val = choose_val(bo)
-    return [col, row, val]
+    return [row, col]
 
 
 
