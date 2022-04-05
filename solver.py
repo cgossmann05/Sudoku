@@ -2,17 +2,16 @@ from game import choose_col, choose_row, choose_val
 from boards import print_board
 
 
-
+# This function plays the solving mode of the game, where the user builds a table and then the program solves and prints it
 def play_solver(bo):
-    print("Welcome to Sudoku solver!\n")
-    print_board(bo)
     check_pos(bo)
     print("\n")
+    print_board(bo)
     done = ask_if_finished()
     find = find_empty(bo)
     if done or not find:
         solve(bo)
-        print("Congratulations! Here is your solved board.\n")
+        print("\nCongratulations! Here is your solved board.\n")
         print_board(bo)
         print("\n")
         return True
@@ -20,10 +19,10 @@ def play_solver(bo):
         play_solver(bo)
 
 
-
+# This function asks the user if they are finished building the board to be solved by the program
 def ask_if_finished():
-    response = input("Do you want to solve the board now? Enter \"y\" for yes and \"c\" to continue building the board.\n")
-    if response == "y":
+    response = input("\nDo you want to solve the board now? Enter \"s\" to solve and \"c\" to continue building the board: ")
+    if response == "s":
         return True
     elif response == "c":
         return False
@@ -31,7 +30,7 @@ def ask_if_finished():
         ask_if_finished()
 
 
-
+# This function checks the position chosen, and if it's a valid position, it puts in in the board, otherwise it alerts is not a valid position
 def check_pos(bo):
     row, col = choose_pos(bo)
     val = choose_val(bo)
@@ -43,14 +42,14 @@ def check_pos(bo):
         check_pos(bo)
 
 
-
+# This function calls the functions of choosing the column and row, and returns the position
 def choose_pos(bo):
     col = choose_col(bo)
     row = choose_row(bo)
     return [row, col]
 
 
-
+# This function solves the board with regression, trying the first number possible, and if it's not possible it goes back with another number
 def solve(bo):
 
     find = find_empty(bo)
@@ -71,20 +70,20 @@ def solve(bo):
     return False
 
 
-
+# This function checks if the value entered is valid, checking if the number is already in the row, column or 3x3 box
 def valid(bo, val, pos):
     
-    #check row
+    # This checks the row
     for i in range(len(bo[0])):
         if bo[pos[0]][i] == val and pos[1] != i:
             return False
     
-    #check columns
+    # This checks the column
     for i in range(len(bo)):
         if bo[i][pos[1]] == val and pos[0] != i:
             return False
     
-    #check box
+    # This checks the 3x3 box
     box_x = pos[1] // 3
     box_y = pos[0] // 3
 
@@ -96,6 +95,7 @@ def valid(bo, val, pos):
     return True
 
 
+# This function iterates through the board and returns the first empty position
 def find_empty(bo):
     for row in range(len(bo)):
         for col in range(len(bo[0])):
